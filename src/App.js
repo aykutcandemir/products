@@ -8,6 +8,7 @@ export default class App extends Component {
   state = {
     currentCategory: "",
     products: [],
+    cart:[],
   };
 
   componentDidMount() {
@@ -19,7 +20,7 @@ export default class App extends Component {
     this.getProducts(category.id);
   };
 
-  getProducts = categoryId => {
+  getProducts = (categoryId) => {
     let url = "http://localhost:3000/products";
     if (categoryId) {
       url += "?categoryId=" + categoryId;
@@ -27,6 +28,17 @@ export default class App extends Component {
     fetch(url)
       .then((response) => response.json())
       .then((data) => this.setState({ products: data }));
+  };
+
+  addToCart = (product) => {
+    let newCart = this.state.cart;
+    var addedItem = newCart.find(c=>c.product.id === product.id);
+    if(addedItem){
+      addedItem.quantity+=1;
+    }else{
+      newCart.push({product:product,quantity:1});
+    }
+    this.setState({cart:newCart});
   };
 
   render() {
@@ -39,9 +51,8 @@ export default class App extends Component {
     return (
       <div className="App">
         <Container>
-          <Row>
-            <Navi />
-          </Row>
+          <Navi cart={this.state.cart} />
+
           <Row>
             <Col sm="3">
               <CategoryList
@@ -53,6 +64,7 @@ export default class App extends Component {
             <Col sm="9">
               <ProductList
                 products={this.state.products}
+                addToCart={this.addToCart}
                 info={productInfo}
                 currentCategory={this.state.currentCategory}
               />
@@ -63,5 +75,3 @@ export default class App extends Component {
     );
   }
 }
-
-/* dhvgkbgvu */
