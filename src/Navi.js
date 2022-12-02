@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import {
   Collapse,
   Navbar,
@@ -8,44 +9,51 @@ import {
   NavItem,
   NavLink,
   NavbarText,
-} from 'reactstrap';
-import CartSummary from './CartSummary'
-
+} from "reactstrap";
+import CartSummary from "./CartSummary";
 
 export default class Navi extends Component {
   state = {
-    isOpen : false
-  }
+    isOpen: false,
+  };
 
   toggle = () => {
-      this.setState({
-        isOpen : !this.state.isOpen
-      })
-  }
+    this.setState({
+      isOpen: !this.state.isOpen,
+    });
+  };
 
   render() {
     return (
       <div>
-      <Navbar color='light' light expand ="md">
-        <NavbarBrand href="/">Shopify</NavbarBrand>
-        <NavbarToggler onClick={this.toggle} />
-        <Collapse isOpen={this.state.isOpen} navbar>
-          <Nav className="me-auto" navbar>
-            <NavItem>
-              <NavLink href="/components/">Components</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">
-                GitHub
-              </NavLink>
-            </NavItem>
-            <CartSummary removeFromCart={this.props.removeFromCart} cart={this.props.cart} />
-            
-          </Nav>
-          <NavbarText>Simple Text</NavbarText>
-        </Collapse>
-      </Navbar>
-    </div>
-    )
+        <Navbar color="light" light expand="md">
+          <NavbarBrand href="/">Shopify</NavbarBrand>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="me-auto ms-5" navbar>
+              {/* <NavItem>
+                <NavLink>
+                  <Link to="/form1">Form Demo 1</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink>
+                  <Link to="/form2">Form Demo 2</Link>
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="#">Select</NavLink>
+              </NavItem> */}
+              <CartSummary
+                removeFromCart={this.props.removeFromCart}
+                cart={this.props.cart}
+              />
+            </Nav>
+            <NavbarText>MyShop</NavbarText>
+          </Collapse>
+        </Navbar>
+      </div>
+    );
   }
 }
+
